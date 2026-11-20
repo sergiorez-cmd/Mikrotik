@@ -238,7 +238,29 @@ secret add name=User-Name profile=OpenVPN-Profile password=P@ssW0rd service=ovpn
 /ip cloud
 set ddns-enabled=yes ddns-update-interval=5m
 ```
-
+### Client Conf
+```text
+dev tun
+persist-key
+persist-tun
+data-ciphers AES-256-CBC
+data-ciphers-fallback AES-256-CBC
+auth SHA1
+tls-client
+client
+resolv-retry infinite
+remote xxxxxxxxxxx.sn.mynetname.net 1194 tcp
+float
+nobind
+ca /home/user/config-ovpn/mkCA.crt
+cert /home/user/config-ovpn/CLIENT.crt
+key /home/user/config-ovpn/CLIENT.key
+remote-cert-tls server
+;redirect-gateway def1
+route 172.16.0.0 255.255.255.0
+route 192.168.0.0 255.255.255.0
+dhcp-option DNS 9.9.9.9
+```
 ## Regras MK firewall default
 ```bash
 /ip firewall {
